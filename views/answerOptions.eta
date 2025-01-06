@@ -1,0 +1,71 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Application</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans p-6">
+
+  <!-- Question Title -->
+  <h2 class="text-2xl font-semibold mb-6 text-center"><%= it.question.question_text %></h2>
+
+  <!-- No Answer Options Message -->
+  <% if (it.answerOptions.length === 0) { %>
+    <div class="bg-yellow-100 text-yellow-800 p-4 mb-6 rounded-md text-center">
+      No answer options available for this question.
+    </div>
+    <form action="/topics/<%= it.topicId %>/questions/<%= it.questionId %>/delete" method="POST" class="text-center">
+      <button type="submit" class="bg-red-600 text-white py-2 px-6 rounded-md hover:bg-red-700">Delete Question</button>
+    </form>
+  <% } else { %>
+    <!-- Answer Options List -->
+    <ul class="space-y-4">
+      <% it.answerOptions.forEach((option) => { %>
+        <li class="flex justify-between items-center p-4 bg-white border border-gray-300 rounded-lg shadow-sm">
+          <span><%= option.option_text %> (Correct: <%= option.is_correct ? "Yes" : "No" %>)</span>
+          <form action="/topics/<%= it.topicId %>/questions/<%= it.questionId %>/options/<%= option.id %>/delete" method="POST">
+            <button type="submit" class="bg-red-600 text-white py-1 px-3 rounded-md text-sm hover:bg-red-700">Delete Option</button>
+          </form>
+        </li>
+      <% }) %>
+    </ul>
+  <% } %>
+
+  <!-- Error Messages -->
+  <% if (it.errors.length > 0) { %>
+    <div class="bg-red-100 text-red-700 p-4 mb-6 rounded-md">
+      <ul class="list-inside">
+        <% it.errors.forEach(error => { %>
+          <li><%= error %></li>
+        <% }) %>
+      </ul>
+    </div>
+  <% } %>
+
+  <!-- Add Answer Option Form -->
+  <form action="/topics/<%= it.topicId %>/questions/<%= it.questionId %>/options" method="POST" class="bg-white p-6 rounded-lg shadow-sm mt-6">
+    <h4 class="text-xl font-semibold mb-4">Add Answer Options:</h4>
+
+    <!-- Option Text Field -->
+    <div class="mb-4">
+      <label for="option_text" class="block text-gray-700">Option Text:</label>
+      <input type="text" name="option_text" id="option_text" value="<%= it.formData.option_text %>" required
+        class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+    </div>
+
+    <!-- Correct Answer Checkbox -->
+    <div class="mb-4 flex items-center">
+      <input type="checkbox" name="is_correct" id="is_correct" <%= it.formData.is_correct ? "checked" : "" %> 
+        class="mr-2">
+      <label for="is_correct" class="text-gray-700">Is Correct</label>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="bg-blue-600 text-white py-2 px-6 rounded-md hover:bg-blue-700">Add Option</button>
+  </form>
+
+  <div class="mt-6 text-center">
+    <a href="/" class="bg-gray-600 text-white py-2 px-6 rounded-md hover:bg-gray-700">Main Page</a>
+  </div>
+
+</body>

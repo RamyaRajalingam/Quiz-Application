@@ -1,0 +1,32 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Application</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="font-sans bg-gray-100 text-gray-800 p-5">
+
+  <!-- Page Title -->
+  <h1 class="text-center text-blue-600 mb-8 text-3xl font-semibold">Welcome to the Quiz Application</h1>
+
+  <!-- Navigation -->
+  <div class="text-center mb-8">
+    <a href="/topics" class="mr-5 py-2 px-6 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Topics</a>
+    <a href="/quiz" class="py-2 px-6 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Start Quiz</a>
+  </div>
+
+  <!-- User Actions -->
+  <div class="text-center mb-8">
+    <a href="/auth/register" class="mr-5 py-2 px-6 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Register</a>
+    <a href="/auth/login" class="py-2 px-6 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Login</a>
+  </div>
+
+  <!-- Statistics Section -->
+  <div class="text-center mb-8">
+    <h2 class="text-gray-800 text-xl font-semibold">Quiz Statistics</h2>
+    <p class="text-lg">Topics: <%= it.totalTopics.count %></p>
+    <p class="text-lg">Questions: <%= it.totalQuestions.count %></p>
+    <p class="text-lg">Answered Questions: <%= it.totalQuestionAnswers.count %></p>
+  </div>
+
+</body>

@@ -1,0 +1,67 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Application</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-900 p-6">
+
+  <!-- Topic Title -->
+  <h1 class="text-3xl font-semibold text-center mb-6">Questions for Topic: <%= it.topics.name %></h1>
+
+  <!-- No Questions Available -->
+  <% if (it.questions.length === 0) { %>
+    <div class="bg-yellow-100 text-yellow-800 p-4 rounded-md text-center mb-6">
+      No questions available for this topic.
+    </div>
+  <% } else { %>
+    <!-- Questions List -->
+    <ul class="space-y-4">
+      <% it.questions.forEach((question) => { %>
+        <li class="border p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+          <a href="/topics/<%= it.topics.id %>/questions/<%= question.id %>" class="text-blue-600 hover:text-blue-800 font-medium">
+            <%= question.question_text %>
+          </a>
+        </li>
+      <% }) %>
+    </ul>
+  <% } %>
+
+  <!-- Error Messages -->
+  <% if (it.errors && it.errors.length > 0) { %>
+    <div class="bg-red-100 text-red-800 p-4 rounded-md mb-6">
+      <ul class="list-disc pl-6">
+        <% it.errors.forEach(error => { %>
+          <li><%= error %></li>
+        <% }) %>
+      </ul>
+    </div>
+  <% } %>
+
+  <!-- Add Question Form -->
+  <form action="/topics/<%= it.topics.id %>/questions" method="POST" class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md">
+    <!-- Form Group for Question Input -->
+    <div class="mb-4">
+      <label for="question_text" class="block text-lg font-medium mb-2">Add Question:</label>
+      <input 
+        type="text" 
+        name="question_text" 
+        id="question_text" 
+        placeholder="Enter your question" 
+        value="<%= it.formData.question_text %>" 
+        required 
+        class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="w-full py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
+      Add Question
+    </button>
+  </form>
+
+  <!-- Link Back to Main Page -->
+  <div class="mt-6 text-center">
+    <a href="/" class="text-blue-600 hover:text-blue-800 font-medium">Main page</a>
+  </div>
+
+</body>

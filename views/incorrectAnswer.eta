@@ -1,0 +1,21 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Application</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-900 p-6 flex justify-center items-center min-h-screen">
+
+  <!-- Incorrect Answer Message -->
+  <div class="bg-red-100 text-red-800 p-6 rounded-lg shadow-md text-center w-full max-w-md">
+    <h2 class="text-3xl font-semibold mb-4">Incorrect!</h2>
+    <p class="text-lg mb-4">Oops! The answer is not correct.</p>
+    
+    <!-- Correct Answer -->
+    <p class="text-lg mb-6">The correct answer was: <strong><%= it.correctOption.option_text %></strong></p>
+    
+    <!-- Next Question Button -->
+    <a href="/quiz/<%= it.topicId %>" class="bg-blue-600 text-white py-2 px-6 rounded-md hover:bg-blue-700 transition-colors duration-300">Next question</a>
+  </div>
+
+</body>

@@ -1,0 +1,60 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Application</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans p-6">
+
+  <!-- Page Title -->
+  <h1 class="text-center text-3xl font-semibold mb-6">Topics List</h1>
+
+  <!-- Topics List -->
+  <ul class="list-none p-0">
+    <% it.topics.forEach(topic => { %>
+      <li class="flex justify-between items-center mb-4 p-4 border border-gray-300 rounded-lg">
+        <a href="/topics/<%= topic.id %>" class="text-blue-600 hover:underline"><%= topic.name %></a>
+        <% if (it.isAdmin) { %>
+          <form action="/topics/<%= topic.id %>/delete" method="POST" class="inline-block">
+            <button type="submit" class="bg-red-600 text-white py-1 px-3 rounded-md text-sm hover:bg-red-700">Delete</button>
+          </form>
+        <% } %>
+      </li>
+    <% }) %>
+  </ul>
+
+  <!-- Link to Main Page -->
+  <div class="text-center mt-6">
+    <a href="/" class="bg-gray-600 text-white py-2 px-6 rounded-md hover:bg-gray-700">Main Page</a>
+  </div>
+
+  <!-- Admin Section: Add a New Topic -->
+  <% if (it.isAdmin) { %>
+    <div class="mt-10">
+      <h2 class="text-center text-2xl font-semibold mb-4">Add a New Topic</h2>
+
+      <!-- Error Messages -->
+      <% if (it.errors && it.errors.length > 0) { %>
+        <div class="bg-red-100 text-red-700 p-4 mb-6 rounded-md">
+          <ul class="list-inside">
+            <% it.errors.forEach(error => { %>
+              <li><%= error %></li>
+            <% }) %>
+          </ul>
+        </div>
+      <% } %>
+
+      <!-- Add Topic Form -->
+      <form action="/topics" method="POST" class="flex justify-center items-center gap-4">
+        <div class="mb-4">
+          <label for="name" class="font-semibold">Topic Name:</label>
+          <input type="text" name="name" id="name" value="<%= it.formData.name %>" required class="p-3 text-lg border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        </div>
+        <div class="mb-4">
+          <button type="submit" class="bg-blue-600 text-white py-2 px-8 rounded-md hover:bg-blue-700">Add Topic</button>
+        </div>
+      </form>
+    </div>
+  <% } %>
+
+</body>

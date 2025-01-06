@@ -1,0 +1,28 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Application</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-900 p-6">
+
+  <!-- Page Title -->
+  <h1 class="text-3xl font-bold text-center text-blue-600 mb-8">Quiz Topics - Click on the topics to play</h1>
+
+  <!-- Topic List -->
+  <% if (it.topics.length > 0) { %>
+    <ul class="space-y-4">
+      <% it.topics.forEach(topic => { %>
+        <li class="bg-white p-4 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+          <a href="/quiz/<%= topic.id %>" class="text-blue-600 hover:text-blue-800 text-lg font-medium">
+            <%= topic.name %>
+          </a>
+        </li>
+      <% }) %>
+    </ul>
+  <% } else { %>
+    <div class="bg-yellow-100 text-yellow-800 p-4 rounded-md text-center">
+      No topics available for quiz.
+    </div>
+  <% } %>
+</body>
